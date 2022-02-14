@@ -8,12 +8,12 @@ from sklearn import *
 
 app = Flask(__name__, template_folder='template')
 
-model = pickle.load(open(r'C:\Users\Aishwarya Pai\Documents\fasal\TC_forecast.pkl','rb'))
-model_1 = pickle.load(open(r'C:\Users\Aishwarya Pai\Documents\fasal\HUM_forecast.pkl','rb'))
+model = pickle.load(open('aishuarp97/fasal/TC_forecast.pkl','rb'))
+model_1 = pickle.load(open('aishuarp97/fasal/HUM_forecast.pkl','rb'))
 
 @app.route('/')
 def home():
-    return render_template(r'index.html')
+    return render_template('index.html')
 
 @app.route('/predict',methods=['POST'])
 def predict():
@@ -26,7 +26,7 @@ def predict():
     poly1 = PolynomialFeatures(degree=3)
     Xt1 = poly1.fit_transform(X_test)
     output_1 = model_1.predict(Xt1)
-    return(render_template(r'index.html',prediction_text="Temperature is $ {}".format(output), prediction_text1="Humidity is $ {}".format(output_1)))
+    return(render_template('index.html',prediction_text="Temperature is $ {}".format(output), prediction_text1="Humidity is $ {}".format(output_1)))
 
 
 if __name__ == '__main__':
